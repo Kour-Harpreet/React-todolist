@@ -45,6 +45,18 @@ class App extends React.Component {
     // this.setState() triggers the render() method, so we can see updated state info in our presentation.
     this.setState( {[key]: value} );
   }
+  removeToDo ( id )
+  {
+    // Create a clone of our ToDos array, so we can make changes before updating state.
+    const currentToDoList = [...this.state.toDos]; // "..." is the spread operator.
+
+    // Returns a filtered version of the array, leaving only the items that DIDN'T match the "id" parameter.
+    const updatedToDoList = currentToDoList.filter( toDo => toDo.uniqueId !== id ); // We'll have an array without the target!
+
+    // Since we can't update directly... use the setState method! This will trigger the render() method.
+    this.setState( { toDos: updatedToDoList } );
+  }
+
   render() {
     return (
   
@@ -68,7 +80,9 @@ class App extends React.Component {
 
       </ul>
       {this.state.toDos.map( toDo => ( // We can use .map() to "loop" through our array contents. Great for outputting something like these ToDos.
-            <ToDo key={toDo.uniqueId} task={toDo.value} />
+              <li key={toDo.uniqueId} onClick={() => {this.removeToDo( toDo.uniqueId )} }>
+              {toDo.value}
+            </li>
           ) )}
     </>
     );
