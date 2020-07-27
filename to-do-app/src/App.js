@@ -13,8 +13,16 @@ class App extends React.Component {
 
   addToDo ( event )
   {
-    event.preventDefault();
+    event.preventDefault(); // Stop the page from reloading.
     console.log( "Test add todo!" );
+  }
+  updateItem ( key, value )
+  {
+    // We never re-assign the contents of this.state.
+    // this.state is ONLY USED FOR READING VALUES, NOT writing.
+    // When we need to update anything in state, we need to use this.setState()
+    // this.setState() triggers the render() method, so we can see updated state info in our presentation.
+    this.setState( {[key]: value} );
   }
   render() {
     return (
@@ -24,7 +32,13 @@ class App extends React.Component {
       <form onSubmit={this.addToDo}>
         <label htmlFor="newToDo">
           Enter a new "To-Do:"
-          <input type="text" name="newToDo" id="newToDo" required />
+          <input
+              type="text"
+              name="newToDo"
+              id="newToDo"
+              required
+              value={this.state.newToDo}
+              onChange={event => this.updateItem( 'newToDo', event.target.value )} />
         </label>
         <input type="submit" value="Add New To-Do" />
       </form>
