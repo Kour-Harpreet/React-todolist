@@ -1,5 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import ToDo from './ToDo';
 
 class App extends React.Component {
    constructor ( props )
@@ -66,6 +67,9 @@ class App extends React.Component {
       <ul>
 
       </ul>
+      {this.state.toDos.map( toDo => ( // We can use .map() to "loop" through our array contents. Great for outputting something like these ToDos.
+            <ToDo key={toDo.uniqueId} task={toDo.value} />
+          ) )}
     </>
     );
   }
